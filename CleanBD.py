@@ -24,7 +24,7 @@ payment_methods = ["cc", "mb", "mbw", "pp"]
 #####
 
 #loop para realizar o update na variavel exp_flag de todos os metodos de pagamento
-for value in range(4):
+for value in range(len(payment_methods)):
     update_result_cc = col.update_many(
         {"createdAt": {"$lt": payment_del_time[value]}, "payment":payment_methods[value], "status":0},
         { "$set": {"exp_flag":1}}
