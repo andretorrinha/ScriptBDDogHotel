@@ -29,8 +29,8 @@ for value in range(len(payment_methods)):
         {"createdAt": {"$lt": payment_del_time[value]}, "payment":payment_methods[value], "status":0},
         { "$set": {"exp_flag":1}}
     )
-    print("Found count:", update_result_cc.matched_count)
-    print("Updated count:", update_result_cc.modified_count)
+    print("Found ", payment_methods[value], " count:", update_result_cc.matched_count)
+    print("Updated ", payment_methods[value], " count:", update_result_cc.modified_count)
 
 #Encerrar a conexão com a bd
 client.close()
