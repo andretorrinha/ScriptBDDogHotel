@@ -9,7 +9,7 @@ col = db.reservations #colection reservations
 
 #####
 
-#definir os diferentes tempo para criação da flag
+#definir os diferentes tempo para ativaçao da flag
 del_time_cc = datetime.now() - timedelta(hours=3, minutes=0)
 del_time_mb = datetime.now() - timedelta(hours=12, minutes=0)
 del_time_mbw = datetime.now() - timedelta(hours=1, minutes=0)
