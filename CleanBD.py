@@ -32,4 +32,5 @@ for value in range(4):
     print("Found count:", update_result_cc.matched_count)
     print("Updated count:", update_result_cc.modified_count)
 
-
+#Encerrar a conexão com a bd
+client.close()
