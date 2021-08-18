@@ -4,10 +4,12 @@ from datetime import timedelta
 import os
 from dotenv import load_dotenv
 
+#####
+#Ler variavel conection_string do .env
 load_dotenv()
-
 MONGO_CONECTION_STRING = os.getenv('MONGO_CONECTION_STRING')
 
+#####
 #conexão base de dados
 client = MongoClient(MONGO_CONECTION_STRING) #conexão ao cluster
 db = client.casalsaomartinho  #base dados casalsaomartinho
