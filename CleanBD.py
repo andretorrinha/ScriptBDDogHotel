@@ -1,8 +1,9 @@
-from pymongo import MongoClient
+import pytz
+import os
 from datetime import datetime
 from datetime import timedelta
-import os
 from dotenv import load_dotenv
+from pymongo import MongoClient
 
 #####
 #Ler variavel conection_string do .env
@@ -17,11 +18,11 @@ col = db.reservations #colection reservations
 
 #####
 #definir os diferentes tempos para ativaçao da flag, 
-#CUIDADO COM POTENCIAIS DIFERENÇAS EM HORAS COM O DEEPLOY NO SERVER
-del_time_cc = datetime.now() - timedelta(hours=3, minutes=0)
-del_time_mb = datetime.now() - timedelta(hours=12, minutes=0)
-del_time_mbw = datetime.now() - timedelta(hours=1, minutes=0)
-del_time_pp = datetime.now() - timedelta(hours=1, minutes=0)
+#CUIDADO COM POTENCIAIS DIFERENÇAS EM HORAS COM O DEEPLOY NO SERVER 
+del_time_cc = datetime.now(pytz.utc) - timedelta(hours=2, minutes=0) #UTC JA É MENOS UMA HORA
+del_time_mb = datetime.now(pytz.utc) - timedelta(hours=11, minutes=0)
+del_time_mbw = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0)
+del_time_pp = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0)
 
 #####
 #criação de listas com a informação dos metodos de pagamento, e dos tempos de remoção
