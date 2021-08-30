@@ -1,3 +1,4 @@
 *.env
 CleanEasyPay.py
 .vscode
+app.log
