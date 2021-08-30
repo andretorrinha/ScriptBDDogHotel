@@ -18,11 +18,13 @@ col = db.reservations #colection reservations
 
 #####
 #definir os diferentes tempos para ativaçao da flag, 
-#CUIDADO COM POTENCIAIS DIFERENÇAS EM HORAS COM O DEEPLOY NO SERVER 
-del_time_cc = datetime.now(pytz.utc) - timedelta(hours=2, minutes=0) #UTC JA É MENOS UMA HORA
-del_time_mb = datetime.now(pytz.utc) - timedelta(hours=11, minutes=0)
-del_time_mbw = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0)
-del_time_pp = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0)
+
+del_time_cc = datetime.now(pytz.utc) - timedelta(hours=2, minutes=0) #UTC JA É MENOS UMA HORA LOGO 2 = 3
+del_time_mb = datetime.now(pytz.utc) - timedelta(hours=11, minutes=0) # 12H
+del_time_mbw = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0) # 2H
+del_time_pp = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0) # 2H
+
+print(del_time_pp)
 
 #####
 #criação de listas com a informação dos metodos de pagamento, e dos tempos de remoção
