@@ -34,7 +34,7 @@ payment_methods = ["cc", "mb", "mbw", "pp"]
 for value in range(len(payment_methods)):
     update_result_cc = col.update_many(
         {"createdAt": {"$lt": payment_del_time[value]}, "payment":payment_methods[value], "status":0},
-        { "$set": {"exp_flag":1}}
+        { "$set": {"status":9}}
     )
     print("Found ", payment_methods[value], " count:", update_result_cc.matched_count)
     print("Updated ", payment_methods[value], " count:", update_result_cc.modified_count)
