@@ -1,9 +1,14 @@
+import logging
 import pytz
 import os
 from datetime import datetime
 from datetime import timedelta
 from dotenv import load_dotenv
 from pymongo import MongoClient
+
+###
+#configurar logging
+logging.basicConfig(filename='app.log', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 #####
 #Ler variavel conection_string do .env
@@ -18,11 +23,12 @@ col = db.reservations #colection reservations
 
 #####
 #definir os diferentes tempos para ativaçao da flag, 
-#CUIDADO COM POTENCIAIS DIFERENÇAS EM HORAS COM O DEEPLOY NO SERVER 
-del_time_cc = datetime.now(pytz.utc) - timedelta(hours=2, minutes=0) #UTC JA É MENOS UMA HORA
-del_time_mb = datetime.now(pytz.utc) - timedelta(hours=11, minutes=0)
-del_time_mbw = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0)
-del_time_pp = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0)
+del_time_cc = datetime.now(pytz.utc) - timedelta(hours=2, minutes=0) #UTC JA É MENOS UMA HORA LOGO 2 = 3
+del_time_mb = datetime.now(pytz.utc) - timedelta(hours=11, minutes=0) # 12H
+del_time_mbw = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0) # 2H
+del_time_pp = datetime.now(pytz.utc) - timedelta(hours=1, minutes=0) # 2H
+
+print(del_time_pp)
 
 #####
 #criação de listas com a informação dos metodos de pagamento, e dos tempos de remoção
@@ -31,6 +37,7 @@ payment_methods = ["cc", "mb", "mbw", "pp"]
 
 #####
 #loop para realizar o update na variavel exp_flag de todos os metodos de pagamento
+<<<<<<< HEAD
 for value in range(len(payment_methods)):
     update_result_cc = col.update_many(
         {"createdAt": {"$lt": payment_del_time[value]}, "payment":payment_methods[value], "status":0},
@@ -38,7 +45,21 @@ for value in range(len(payment_methods)):
     )
     print("Found ", payment_methods[value], " count:", update_result_cc.matched_count)
     print("Updated ", payment_methods[value], " count:", update_result_cc.modified_count)
+=======
+try:
+    for value in range(len(payment_methods)):
+        update_result_cc = col.update_many(
+            {"createdAt": {"$lt": payment_del_time[value]}, "payment":payment_methods[value], "status":0},
+            { "$set": {"status":9}}
+        )
+        print("Found ", payment_methods[value], " count:", update_result_cc.matched_count)
+        print("Updated ", payment_methods[value], " count:", update_result_cc.modified_count)
+    logging.info("Os valores sobre o estado de pagamento levaram update")
+>>>>>>> e796f45b3ae30ae91ef020dd27fb7ace5002b57d
 
+except Exception as e:
+    logging.exception("Erro a dar update na bd", exc_info=True)
+    
 #####
 #Encerrar a conexão com a bd
 client.close()
