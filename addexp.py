@@ -5,9 +5,7 @@ from datetime import datetime
 from datetime import timedelta
 from dotenv import load_dotenv
 from pymongo import MongoClient
-from apscheduler.schedulers.blocking import BlockingScheduler
 
-sched = BlockingScheduler()
 ###
 #configurar logging
 logging.basicConfig(filename='app.log', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -26,7 +24,6 @@ col = db.reservations #colection reservations
 #####
 #loop para realizar o update na variavel exp_flag de todos os metodos de pagamento
 
-@sched.scheduled_job('interval', seconds=30)
 def checkpagamentos():
     #definir os diferentes tempos para ativaçao da flag, 
     current_time = datetime.now(pytz.utc) + timedelta(hours=1, minutes=0) #UTC JA É MENOS UMA HORA LOGO 2 = 3
@@ -36,15 +33,15 @@ def checkpagamentos():
     try:
         for value in range(len(payment_methods)):
             update_result_cc = col.update_many(
-                {"exp_time": {"$lt": current_time}, "payment":payment_methods[value], "status":0},
-                { "$set": {"status":9}}
+                {"payment":payment_methods[value], "status":0},
+                { "$set": {"exp_time":current_time + timedelta(hours = 12)}}
             )
-        logging.info("Os valores sobre o estado de pagamento levaram update")
+        logging.info("Criado um exp data")
 
     except Exception as e:
-        logging.exception("Erro a dar update na bd", exc_info=True)
+        logging.exception("Erro a criar exp data", exc_info=True)
 
-sched.start()
+checkpagamentos()
 
 #####
 #Encerrar a conexão com a bd

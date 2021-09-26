@@ -1,5 +1,9 @@
 .env
+.env-example
 .vscode
 README.md
 .gitignore
 app.log
+addexp.py
+Dockerfile
+README.md
