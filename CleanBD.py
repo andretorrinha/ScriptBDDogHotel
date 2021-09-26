@@ -39,6 +39,7 @@ payment_methods = ["cc", "mb", "mbw", "pp"]
 
 #####
 #loop para realizar o update na variavel exp_flag de todos os metodos de pagamento
+<<<<<<< HEAD
 
 @sched.scheduled_job('interval', hours=1)
 def checkpagamentos():
@@ -56,6 +57,31 @@ def checkpagamentos():
         logging.exception("Erro a dar update na bd", exc_info=True)
 
 sched.start()
+=======
+<<<<<<< HEAD
+for value in range(len(payment_methods)):
+    update_result_cc = col.update_many(
+        {"createdAt": {"$lt": payment_del_time[value]}, "payment":payment_methods[value], "status":0},
+        { "$set": {"status":9}}
+    )
+    print("Found ", payment_methods[value], " count:", update_result_cc.matched_count)
+    print("Updated ", payment_methods[value], " count:", update_result_cc.modified_count)
+=======
+try:
+    for value in range(len(payment_methods)):
+        update_result_cc = col.update_many(
+            {"createdAt": {"$lt": payment_del_time[value]}, "payment":payment_methods[value], "status":0},
+            { "$set": {"status":9}}
+        )
+        print("Found ", payment_methods[value], " count:", update_result_cc.matched_count)
+        print("Updated ", payment_methods[value], " count:", update_result_cc.modified_count)
+    logging.info("Os valores sobre o estado de pagamento levaram update")
+>>>>>>> e796f45b3ae30ae91ef020dd27fb7ace5002b57d
+
+except Exception as e:
+    logging.exception("Erro a dar update na bd", exc_info=True)
+    
+>>>>>>> b4df895311b62f4bcb24a51ca702dba680c1f89f
 #####
 #Encerrar a conexão com a bd
 client.close()
