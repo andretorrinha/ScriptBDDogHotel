@@ -3,3 +3,4 @@ pymongo[srv]
 datetime
 python-dotenv
 pytz
+apscheduler
