@@ -26,7 +26,7 @@ col = db.reservations #colection reservations
 #####
 #loop para realizar o update na variavel exp_flag de todos os metodos de pagamento
 
-@sched.scheduled_job('interval', seconds=30)
+@sched.scheduled_job('interval', minutes=30)
 def checkpagamentos():
     #definir os diferentes tempos para ativaçao da flag, 
     current_time = datetime.now(pytz.utc) + timedelta(hours=1, minutes=0) #UTC JA É MENOS UMA HORA LOGO 2 = 3
